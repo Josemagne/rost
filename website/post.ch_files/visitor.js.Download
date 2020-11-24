@@ -1,0 +1,53 @@
+(function() {
+function loadScript(uri) {
+const timeoutTime = 12000;
+const script = document.createElement('script');
+script.setAttribute('charset', 'UTF-8');
+script.setAttribute('type', 'text/javascript');
+script.setAttribute('async', true);
+script.setAttribute('timeout', timeoutTime);
+script.src = uri;
+const timeoutHandle = setTimeout(function() {onError('Timeout');}, timeoutTime);
+script.onerror = onError;
+function onComplete() {
+    // avoid mem leaks in IE.    script.onerror = script.onload = null;
+    clearTimeout(timeoutHandle);
+}
+function onError(result) {
+    onComplete();
+    console.error('Failed to load script! Uri:', uri, 'Result:', result);
+}
+script.onload = function () {
+    onComplete();
+};
+const head = document.getElementsByTagName('HEAD')[0];
+head.appendChild(script);
+}
+if(window.unblu && window.unblu.APIKEY) {console.warn('Existing unblu detected while loading unblu. Please check site for double injection!'); return;}
+if (!window['x-unblu-tmp-window-name']) window['x-unblu-tmp-window-name']=window.name;
+window.unblu = window.unblu || {};
+window.unblu.APIKEY = 'MZsy5sFESYqU7MawXZgR_w';
+window.unblu.entryPoint = 'SiteIntegrationLazyMain';
+window.unblu.bi = '_unblu_572F594F_21AA_4D30_8081_40F2793592AF';
+
+function extractServerUrl(prefix) {
+	var VISITOR_JS_PART = prefix + '/visitor.js';
+	var script = document.querySelector('script[src*="' + VISITOR_JS_PART + '"]');
+	if (!script) {
+		console.warn('Could not find unblu script tag. Assuming relative path.');
+       return '';
+	}
+	var regex = new RegExp('(.*)' + VISITOR_JS_PART.replace('/', '\/').replace('.', '\.'));
+	var match = regex.exec(script.src);
+	if (match == null || match.length < 1)
+		console.error('Error loading unblu, can\'t extract unblu server from visitor.js script tag');
+	else
+		return match[1];
+}
+if(!window.unblu.SERVER) window.unblu.SERVER = extractServerUrl('/unblu');
+window['_unblu_572F594F_21AA_4D30_8081_40F2793592AF'] = {"$_cfg":{"e8":"","isDeploymentModeProduction":true,"bi":"_unblu_572F594F_21AA_4D30_8081_40F2793592AF","pot":"x-unblu","NOt":false,"pat":".post.ch","udt":true,"sdt":true,"multiAccount":false,"odt":false,"t8":null,"Kd":12000,"Nd":1605299089719,"Gd":1605642948213,"agentAvailabilityVersion":1605633594000,"qd":"de-DE","Zd":null,"Rm":"","defaultOriginPublic":"","L1e":"2QzV243lS0meXMFkql0epQ"}};
+window['_unblu_572F594F_21AA_4D30_8081_40F2793592AF']['$_cfg']['Q6'] = window['x-unblu-tmp-systempath'] || '/unblu';
+window['_unblu_572F594F_21AA_4D30_8081_40F2793592AF']['$_cfg']['systemPathPrefix'] = window['x-unblu-tmp-systempath-prefix'] || '/unblu';
+window['_unblu_572F594F_21AA_4D30_8081_40F2793592AF']['$_cfg']['n8'] = window['x-unblu-tmp-systempath-public'] || '/unblu';
+loadScript(window.unblu.SERVER + '/unblu' + '/static/js/wp/xmd1605299089719/Initializer.js');
+})();
