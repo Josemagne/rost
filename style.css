@@ -355,6 +355,53 @@ main {
   color: rgb(211, 202, 202);
 }
 
+/* 2.3 site2 */
+
+.site2 {
+  position: relative;
+  width: 80%;
+  left: 10px;
+}
+
+.sit2__container {
+  display: flex;
+  align-items: center;
+}
+
+.site2__container-content {
+  display: flex;
+  background-color: #F4F3F1;
+}
+
+.site2__container-content-title {
+  width: 10%;
+  margin-right: 10%;
+}
+
+.site2__container-content-title p {
+  font-size: 2rem;
+}
+
+.site2__container-content-infos {
+  
+}
+
+.site2__container-content-infos ul {
+  list-style: none;
+}
+
+.site2__container-content-infos li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.site2__container-content-infos a {
+  text-decoration: none;
+  color: black;
+}
+
+
+
 
 
 /* MEDIA QUERIES */
